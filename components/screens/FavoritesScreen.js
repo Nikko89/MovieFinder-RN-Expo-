@@ -1,12 +1,43 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
-export default class FavoritesScreen extends Component {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+class FavoritesScreen extends Component {
   render() {
-    return (
-      <View>
-        <Text> Favorites Here </Text>
-      </View>
-    );
+    const { favoriteList } = this.props;
+    if (!favoriteList) {
+      return (
+        <View style={styles.container}>
+          <Text> No Favorite movies yet. Let's look up some! </Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <Text> GOT FAVORITES </Text>
+        </View>
+      );
+    }
   }
 }
+
+const mapStateToProps = state => ({
+  favoriteList: state.favoriteList
+});
+
+const mapDispatchToProps = dispatch => ({
+  removeFromFavorites: id => dispatch(removeFromFavorites(id))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FavoritesScreen);

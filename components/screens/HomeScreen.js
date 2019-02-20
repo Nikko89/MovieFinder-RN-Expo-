@@ -41,9 +41,7 @@ export default class HomeScreen extends Component {
             iconName={Platform.OS === "ios" ? "ios-videocam" : "md-videocam"}
             title="My Watch List"
             type="solid"
-            click={() =>
-              console.log(this.props.navigation.navigate("Favorites"))
-            }
+            click={() => this.props.navigation.navigate("Favorites")}
           />
         </View>
       </View>
