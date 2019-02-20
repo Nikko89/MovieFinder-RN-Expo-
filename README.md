@@ -4,7 +4,7 @@ A project to play with React Native and the Expo SDK.
 
 ## Tech Stack
 
-React Native, Redux, Expo
+React Native, Redux, Expo, tMDB API.
 
 ## What It Does
 
