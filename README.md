@@ -1,6 +1,6 @@
 # MovieFinder-RN-Expo-
 
-A project to play with React Native and the Expo SDK.
+A project to play with React Native and the Expo SDK. Currently being developed, key features missing.
 
 ## Tech Stack
 
