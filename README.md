@@ -10,11 +10,25 @@ React Native, Redux, Expo, tMDB API.
 
 You can search for movies, and add or delete them to/from favorites.
 
-## Installing with NPM
+## Cloning and Installing with NPM
+
 
 ```
-npm install
+git clone https://github.com/Nikko89/MovieFinder-RN-Expo- *repo_name*
+cd *repo_name*
+npm install 
 ```
+
+The project needs a valid TMDB API KEY to work. You can get one for free at https://www.themoviedb.org/, then open `package.json` and append this key to the expo object:
+
+```
+"extra": {
+      "TMDB_API_KEY": "Your API key here"
+    }
+```
+
+
+
 
 Now either
 
