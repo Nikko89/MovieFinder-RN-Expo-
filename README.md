@@ -19,7 +19,7 @@ cd *repo_name*
 npm install 
 ```
 
-The project needs a valid TMDB API KEY to work. You can get one for free at https://www.themoviedb.org/, then open `package.json` and append this key to the expo object:
+The project needs a valid TMDB API KEY to work. You can get one for free at https://www.themoviedb.org/, then open `app.json` and append this key to the expo object:
 
 ```
 "extra": {
