@@ -27,10 +27,9 @@ The project needs a valid TMDB API KEY to work. You can get one for free at http
     }
 ```
 
+## Boot it!
 
-
-
-Now either
+Either
 
 ```
 npm start
@@ -39,5 +38,6 @@ Or
 ```
 expo start
 ```
+From the project folder.
 
-If you are using iOS and have XCode you can simply open a simulator, else you will have to download the expo app on your smartphone device and proceed to scan the QR code that will show up in the terminal. 
+If you are using iOS and have XCode you can simply open a simulator, else you will have to download the expo app on your smartphone device and proceed to scan the QR code that will show up in the terminal window where you typed the last command.
