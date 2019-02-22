@@ -19,9 +19,6 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
-    },
-    "extra": {
-      "TMDB_API_KEY": "a6c09bf32610b5108b882b558b2e0d85"
     }
   }
 }

@@ -1,24 +1,31 @@
-import React, { Component } from "react";
-import { Button } from "react-native-elements";
-import { Icon } from "expo";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prefer-stateless-function */
+import React, { Component } from 'react';
+import { Button } from 'react-native-elements';
+import { Platform } from 'react-native';
+import { Icon } from 'expo';
 
 export default class SimpleButton extends Component {
   render() {
-    const { title, iconName, type, click } = this.props;
+    const {
+      title, iconName, type, click, iconSize, style, color, second,
+    } = this.props;
     return (
       <Button
-        icon={
+        icon={(
           <Icon.Ionicons
-            name={iconName}
-            size={36}
-            style={{ marginBottom: -3, marginRight: 10 }}
-            color={this.props.focused ? "blue" : "black"}
+            name={Platform.OS === 'ios' ? `ios-${iconName}` : `md-${iconName}`}
+            size={Number.parseInt(iconSize, 10) || 36}
+            style={({ marginBottom: -3 }, title && { marginRight: 10, marginBottom: -3 })}
+            color={second ? 'green' : 'orange'}
           />
-        }
+)}
         title={title}
         type={type}
-        style={{ width: 200 }}
+        containerStyle={{ ...style }}
         onPress={click}
+        color={color}
       />
     );
   }

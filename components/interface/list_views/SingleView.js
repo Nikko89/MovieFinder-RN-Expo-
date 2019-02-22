@@ -1,12 +1,6 @@
-import React, { Component } from "react";
-import { Text, View } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
-export default class SingleView extends Component {
-  render() {
-    return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
-    );
-  }
-}
+const SingleView = () => <Text> SingleView</Text>;
+
+export default SingleView;

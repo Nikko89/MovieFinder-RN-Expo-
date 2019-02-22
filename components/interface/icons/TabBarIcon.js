@@ -1,14 +1,17 @@
-import React from "react";
-import { Icon } from "expo";
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prefer-stateless-function */
+import React from 'react';
+import { Icon } from 'expo';
 
 export default class TabBarIcon extends React.Component {
   render() {
+    const { name, focused } = this.props;
     return (
       <Icon.Ionicons
-        name={this.props.name}
+        name={name}
         size={26}
         style={{ marginBottom: -3 }}
-        color={this.props.focused ? "blue" : "black"}
+        color={focused ? 'blue' : 'black'}
       />
     );
   }
