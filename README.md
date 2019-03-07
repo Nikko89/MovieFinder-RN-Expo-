@@ -6,6 +6,8 @@ A project to play with React Native and the Expo SDK.
 
 React Native, Redux, Expo, tMDB API.
 
+Helpers: ES Lint, Airbnb js style guide.
+
 ## What It Does
 
 You can search for movies, and add or delete them to and from favorites.
