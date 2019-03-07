@@ -7,4 +7,4 @@ npm-debug.*
 *.key
 *.mobileprovision
 assets/images/*
-app.json
+app.jsonapp.json
