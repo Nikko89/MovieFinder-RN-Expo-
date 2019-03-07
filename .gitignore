@@ -8,3 +8,4 @@ npm-debug.*
 *.mobileprovision
 assets/images/*
 app.jsonapp.json
+app.json
