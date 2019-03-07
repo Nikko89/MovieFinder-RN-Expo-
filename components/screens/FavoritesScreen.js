@@ -1,12 +1,12 @@
+/* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import {
-  Text, View, StyleSheet, SimpleButton, Platform,
-} from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { removeFromFavorites } from '../../redux/actions';
 import MovieList from '../interface/list_views/MovieList';
+import SimpleButton from '../interface/buttons/SimpleButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,30 +16,41 @@ const styles = StyleSheet.create({
   },
 });
 
-const FavoritesScreen = (props) => {
-  const { favoriteList, navigation } = props;
-  if (!favoriteList) {
-    return (
-      <View style={styles.container}>
-        <Text>
-          No Favorite movies yet. Add up some first!
+class FavoritesScreen extends React.Component {
+  static navigationOptions = {
+    title: 'My Favorite List',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
+  render() {
+    const { favoriteList, navigation } = this.props;
+    if (favoriteList.length === 0) {
+      return (
+        <View style={styles.container}>
+          <Text>No Favorite movies yet. Add up some first!</Text>
           <SimpleButton
             title="Search some"
-            iconName={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+            iconName="search"
             type="outline"
-            click={() => navigation.navigate('SearchScreen')}
+            click={() => navigation.navigate('Search')}
           />
-        </Text>
+        </View>
+      );
+    }
+
+    return (
+      <View>
+        <MovieList list={favoriteList} />
       </View>
     );
   }
-
-  return (
-    <View style={styles.container}>
-      <MovieList list={favoriteList} />
-    </View>
-  );
-};
+}
 
 /* FavoritesScreen.propTypes = {
   favoriteList: propTypes.arrayOf(
@@ -57,11 +68,4 @@ const mapStateToProps = state => ({
   favoriteList: state.favoriteList,
 });
 
-const mapDispatchToProps = dispatch => ({
-  removeFromFavorites: id => dispatch(removeFromFavorites(id)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(FavoritesScreen);
+export default connect(mapStateToProps)(FavoritesScreen);

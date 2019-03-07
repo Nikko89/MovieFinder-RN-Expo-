@@ -3,54 +3,55 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 import SearchForm from '../interface/forms/SearchForm';
-import SearchView from '../interface/list_views/SearchView';
+import MovieList from '../interface/list_views/MovieList';
+import {
+  updateSearchQuery,
+  genreSearch,
+  dateSearch,
+  genreAndDateSearch,
+  updateMovieList,
+} from '../../redux/actions';
 
 class SearchScreen extends React.Component {
-  state = {
-    searchResults: [],
-    url:
-      'https://api.themoviedb.org/3/discover/movie?api_key=a6c09bf32610b5108b882b558b2e0d85&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1',
+  static navigationOptions = {
+    title: 'Search & Display',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   };
-
-  componentDidMount() {
-    this.fetchData();
-    this.forceUpdate();
-  }
-
-  fetchData = () => {
-    const { url } = this.state;
-    fetch(url)
-      .then(this.handleErrors)
-      .then(res => res.json())
-      .then(res => this.setState({
-        searchResults: res.results,
-      }));
-  };
-
-  handleErrors = (response) => {
-    if (!response.ok) {
-      console.log('RESPONSE PROBLEM', response);
-    }
-    return response;
-  };
-
-  handleSubmit() {
-    this.setState({
-      url:
-        'https://api.themoviedb.org/3/discover/movie?api_key=a6c09bf32610b5108b882b558b2e0d85&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2',
-    });
-  }
 
   render() {
-    const { searchResults } = this.state;
+    const { movieList } = this.props;
     return (
       <View>
-        <SearchForm handleSubmit={this.handleSubmit} />
-        <SearchView list={searchResults || []} />
+        <SearchForm {...this.props} />
+        <MovieList list={movieList} />
       </View>
     );
   }
 }
 
-export default SearchScreen;
+const mapStateToProps = state => ({
+  genreList: state.genreList,
+  searchQuery: state.searchQuery,
+  movieList: state.movieList,
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateSearchQuery: query => dispatch(updateSearchQuery(query)),
+  genreSearch: genreId => dispatch(genreSearch(genreId)),
+  dateSearch: year => dispatch(dateSearch(year)),
+  genreAndDateSearch: (year, genreId) => dispatch(genreAndDateSearch(year, genreId)),
+  updateMovieList: list => dispatch(updateMovieList(list)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SearchScreen);

@@ -1,15 +1,21 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { AppLoading, Font, Icon } from 'expo';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import Main from './components/containers/Main';
 import SpaceMonoFont from './assets/fonts/SpaceMono-Regular.ttf';
+import reducers from './redux/reducers';
+import { loadState, saveState } from './storage/secureStore';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
+const persistedState = loadState();
+const store = createStore(reducers, persistedState, applyMiddleware(logger));
+
+store.subscribe(() => {
+  saveState({
+    favoriteList: store.getState().favoriteList,
+  });
 });
 
 export default class App extends React.Component {
@@ -37,15 +43,15 @@ export default class App extends React.Component {
 
   render() {
     const { isLoadingComplete } = this.state;
-    if (isLoadingComplete) {
+    if (!isLoadingComplete) {
       return (
         <AppLoading startAsync={this.loadResourcesAsync} onFinish={this.handleFinishLoading} />
       );
     }
     return (
-      <View style={styles.container}>
+      <Provider store={store}>
         <Main />
-      </View>
+      </Provider>
     );
   }
 }

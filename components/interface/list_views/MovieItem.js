@@ -1,12 +1,14 @@
+/* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import {
-  Text, View, StyleSheet, Image,
+  View, StyleSheet, Image, Modal,
 } from 'react-native';
 import propTypes from 'prop-types';
-import StarRating from 'react-native-star-rating';
+import { Text, Rating } from 'react-native-elements';
 import window from '../../../constants/layout';
 import SimpleButton from '../buttons/SimpleButton';
+import SingleView from './SingleView';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +27,10 @@ const styles = StyleSheet.create({
     width: window.width * 0.5,
     marginVertical: 15,
     padding: 15,
+  },
+  tooltip: {
+    alignSelf: 'center',
+    width: 300,
   },
   desc: {
     justifyContent: 'flex-start',
@@ -57,56 +63,98 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: 0,
   },
+  modal: {
+    height: window.height,
+    paddingBottom: 15,
+  },
 });
 
-const MovieItem = (props) => {
-  const { movie } = props;
-  const source = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
-  const voteInfo = `${movie.vote_average}/10 on ${movie.vote_count} votes`;
-  return (
-    <View style={styles.container}>
-      <View style={styles.section}>
-        <Image
-          style={{
-            width: 175,
-            height: 250,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          source={{ uri: source }}
-        />
-      </View>
-      <View style={[styles.section, styles.desc]}>
-        <Text style={styles.text}>
-          {movie.title.length > 21 ? movie.title.substr(0, 20) : `${movie.title}...`}
-        </Text>
-        <StarRating
-          disabled
-          maxStars={5}
-          rating={movie.vote_average / 2}
-          starSize={30}
-          style={{ marginTop: 7, marginBottom: 7 }}
-          fullStarColor="green"
-          emptyStarColor="green"
-        />
-        <Text style={styles.smallText}>{voteInfo}</Text>
-        <View style={styles.buttonRow}>
-          <SimpleButton
-            type="outline"
-            color="white"
-            style={styles.button}
-            iconSize={50}
-            iconName="add-circle"
+class MovieItem extends React.Component {
+  state = {
+    showModal: false,
+  };
+
+  mapGenres = (ids, genreList) => genreList.filter(el => ids.includes(el.id)).map(el => el.name);
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal,
+    }));
+  };
+
+  render() {
+    const {
+      movie, toggleFavorite, genreList, isFavorite,
+    } = this.props;
+    const { showModal } = this.state;
+    const posterImg = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
+    const voteInfo = `${movie.vote_average}/10 on ${movie.vote_count} votes`;
+    return (
+      <View style={styles.container}>
+        <View style={styles.section}>
+          <Image
+            style={{
+              width: 175,
+              height: 250,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            source={{ uri: posterImg }}
           />
-          <SimpleButton type="outline" second style={styles.button} iconSize={50} iconName="eye" />
+        </View>
+        <Modal visible={showModal} animationType="slide" onRequestClose={() => this.toggleModal()}>
+          <View style={styles.modal}>
+            <SingleView
+              movie={movie}
+              genres={this.mapGenres(movie.genre_ids, genreList)}
+              closeModal={() => this.toggleModal}
+            />
+          </View>
+        </Modal>
+        <View style={[styles.section, styles.desc]}>
+          <Text style={styles.text}>
+            {movie.title.length > 21 ? `${movie.title.substring(0, 17)}...` : `${movie.title}`}
+          </Text>
+
+          <Rating
+            readonly
+            maxStars={5}
+            startingValue={movie.vote_average / 2}
+            imageSize={25}
+            style={{ marginTop: 7, marginBottom: 7 }}
+            fullStarColor="green"
+            emptyStarColor="green"
+          />
+          <Text style={styles.smallText}>{voteInfo}</Text>
+          <View style={styles.buttonRow}>
+            <SimpleButton
+              type="outline"
+              color={isFavorite ? 'orange' : 'green'}
+              style={styles.button}
+              iconSize={50}
+              iconName={isFavorite ? 'remove-circle' : 'add-circle'}
+              click={() => toggleFavorite(movie)}
+            />
+            <SimpleButton
+              type="outline"
+              second
+              style={styles.button}
+              iconSize={50}
+              iconName="eye"
+              click={this.toggleModal}
+            />
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 MovieItem.propTypes = {
   movie: propTypes.shape().isRequired,
+  genreList: propTypes.arrayOf(propTypes.shape()).isRequired,
+  toggleFavorite: propTypes.func.isRequired,
+  isFavorite: propTypes.bool.isRequired,
 };
 
 export default MovieItem;

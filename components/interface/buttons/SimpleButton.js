@@ -18,14 +18,13 @@ export default class SimpleButton extends Component {
             name={Platform.OS === 'ios' ? `ios-${iconName}` : `md-${iconName}`}
             size={Number.parseInt(iconSize, 10) || 36}
             style={({ marginBottom: -3 }, title && { marginRight: 10, marginBottom: -3 })}
-            color={second ? 'green' : 'orange'}
+            color={color || (second ? 'green' : 'orange')}
           />
 )}
         title={title}
-        type={type}
-        containerStyle={{ ...style }}
+        type={type || 'solid'}
+        buttonStyle={{ ...style }}
         onPress={click}
-        color={color}
       />
     );
   }

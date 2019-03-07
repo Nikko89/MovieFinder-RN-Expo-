@@ -4,7 +4,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "devtools": "react-devtools",
+    "test": "node_modules/.bin/jest"
   },
   "jest": {
     "preset": "jest-expo"
@@ -14,11 +16,16 @@
     "prop-types": "^15.7.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-datepicker": "^1.7.2",
     "react-native-elements": "^1.0.0",
+    "react-native-global-props": "^1.1.5",
     "react-native-star-rating": "^1.1.0",
     "react-navigation": "^3.3.0",
     "react-redux": "^6.0.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -29,7 +36,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "jest-expo": "^32.0.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "react-devtools": "^3.6.0"
   },
   "private": true
 }
