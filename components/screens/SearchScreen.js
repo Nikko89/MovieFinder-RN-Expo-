@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { View } from 'react-native';
+import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
 import SearchForm from '../interface/forms/SearchForm';
 import MovieList from '../interface/list_views/MovieList';
@@ -31,7 +32,22 @@ class SearchScreen extends React.Component {
     return (
       <View>
         <SearchForm {...this.props} />
-        <MovieList list={movieList} />
+        {movieList.length ? (
+          <MovieList list={movieList} />
+        ) : (
+          <View
+            style={{
+              justifyContent: 'center', alignItems: 'center', marginTop: 50, padding: 20,
+            }}
+          >
+            <Text h3 style={{ textAlign: 'center' }}>
+              No movies for this query!
+            </Text>
+            <Text h4 style={{ textAlign: 'center' }}>
+              Please try a different keyword or use filters.
+            </Text>
+          </View>
+        )}
       </View>
     );
   }

@@ -80,6 +80,7 @@ export default class SearchForm extends Component {
     if (showModal === 'searchbar') {
       modalRender = (
         <View style={styles.modal}>
+          <Text>Search movies by keywords</Text>
           <SearchBar
             placeholder="Enter keyword..."
             onChangeText={this.updateSearch}

@@ -1,27 +1,24 @@
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
+import { Text } from 'react-native-elements';
 import propTypes from 'prop-types';
 import SimpleButton from '../interface/buttons/SimpleButton';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
+    marginVertical: 75,
   },
-  sectionOne: {
-    width: 500,
-    flex: 1,
-    backgroundColor: 'lightblue',
-    justifyContent: 'center',
-    alignItems: 'center',
+  buttonList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-  sectionTwo: {
-    width: 500,
-    flex: 1,
-    backgroundColor: 'lightyellow',
+  intro: {
+    marginVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -43,22 +40,49 @@ class HomeScreen extends React.Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <View style={styles.sectionOne}>
+        <View style={styles.intro}>
+          <Text h2 style={{ textTransform: 'uppercase', letterSpacing: 1 }}>
+            Movie Find
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: 'bold',
+              padding: 20,
+              textAlign: 'center',
+            }}
+          >
+            Easily look up movies and build your watchlist!
+          </Text>
+        </View>
+        <View style={styles.buttonList}>
           <SimpleButton
             iconName="search"
-            title="Go Digging"
+            iconSize={50}
+            color="white"
+            title=""
             type="solid"
             click={() => navigation.navigate('Search')}
-            style={{ width: 200 }}
+            style={{
+              borderRadius: 50,
+              margin: 20,
+              width: 80,
+              height: 80,
+            }}
           />
-        </View>
-        <View style={styles.sectionTwo}>
           <SimpleButton
-            iconName="videocam"
-            title="My Watch List"
+            iconName="star"
+            iconSize={50}
+            color="white"
+            title=""
             type="solid"
             click={() => navigation.navigate('Favorites')}
-            style={{ width: 200 }}
+            style={{
+              borderRadius: 50,
+              margin: 20,
+              width: 80,
+              height: 80,
+            }}
           />
         </View>
       </View>

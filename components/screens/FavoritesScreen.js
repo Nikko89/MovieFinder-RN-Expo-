@@ -35,10 +35,18 @@ class FavoritesScreen extends React.Component {
         <View style={styles.container}>
           <Text>No Favorite movies yet. Add up some first!</Text>
           <SimpleButton
-            title="Search some"
             iconName="search"
-            type="outline"
+            iconSize={50}
+            color="white"
+            title=""
+            type="solid"
             click={() => navigation.navigate('Search')}
+            style={{
+              borderRadius: 50,
+              margin: 20,
+              width: 80,
+              height: 80,
+            }}
           />
         </View>
       );
