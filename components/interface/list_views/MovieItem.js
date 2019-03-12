@@ -5,7 +5,7 @@ import {
   View, StyleSheet, Image, Modal,
 } from 'react-native';
 import propTypes from 'prop-types';
-import { Text, Rating } from 'react-native-elements';
+import { Text, Rating, Divider } from 'react-native-elements';
 import window from '../../../constants/layout';
 import SimpleButton from '../buttons/SimpleButton';
 import SingleView from './SingleView';
@@ -17,8 +17,6 @@ const styles = StyleSheet.create({
     width: window.width,
     flexDirection: 'row',
     marginBottom: 10,
-    borderBottomColor: '#bbb',
-    borderBottomWidth: 3,
   },
   section: {
     flex: 1,
@@ -51,7 +49,6 @@ const styles = StyleSheet.create({
     marginRight: 15,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    flex: 1,
   },
   button: {
     margin: 20,
@@ -69,7 +66,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class MovieItem extends React.Component {
+class MovieItem extends React.PureComponent {
   state = {
     showModal: false,
   };
@@ -144,7 +141,12 @@ class MovieItem extends React.Component {
               click={this.toggleModal}
             />
           </View>
+          <Text style={{ fontWeight: 'bold' }}>
+            Release: &nbsp;
+            {movie.release_date.substring(0, 4)}
+          </Text>
         </View>
+        <Divider style={{ backgroundColor: 'blue', height: 2 }} />
       </View>
     );
   }

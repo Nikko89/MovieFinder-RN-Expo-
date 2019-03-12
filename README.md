@@ -6,17 +6,16 @@ A project to play with React Native and the Expo SDK.
 
 React Native, Redux, Expo, tMDB API.
 
-Helpers: ES Lint, Airbnb js style guide.
+Helpers: ES Lint, Airbnb js style guide
 
 ## What It Does
 
 You can search for movies, and add or delete them to and from favorites.
 Search options: Keyword, genre, date, or genre plus date.
-Currently implemented: Keyword, genre. Date not working yet.
 
 ## To Do
 
-Fix Styling, Responsiveness, finish search options, debug persistence between runs, add dynamic navigation, destructure components, add propTypes
+Fix Styling, Responsiveness, debug persistence between runs, add dynamic navigation, destructure components, add propTypes
 
 ## Cloning and Installing with NPM
 

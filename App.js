@@ -7,14 +7,18 @@ import logger from 'redux-logger';
 import Main from './components/containers/Main';
 import SpaceMonoFont from './assets/fonts/SpaceMono-Regular.ttf';
 import reducers from './redux/reducers';
-import { loadState, saveState } from './storage/secureStore';
+import { loadState, saveState } from './storage/asyncStorage';
 
 const persistedState = loadState();
-const store = createStore(reducers, persistedState, applyMiddleware(logger));
+console.log(persistedState);
+const store = createStore(reducers, applyMiddleware(logger));
 
 store.subscribe(() => {
   saveState({
+    movieList: store.getState().movieList,
     favoriteList: store.getState().favoriteList,
+    genreList: store.getState().genreList,
+    searchQuery: store.getState().searchQuery,
   });
 });
 
@@ -25,10 +29,7 @@ export default class App extends React.Component {
 
   loadResourcesAsync = async () => Promise.all([
     Font.loadAsync({
-      // This is the font that we are using for our tab bar
       ...Icon.Ionicons.font,
-      // We include SpaceMono because we use it in HomeScreen.js. Feel free
-      // to remove this if you are not using it in your app
       'space-mono': SpaceMonoFont,
     }),
   ]);

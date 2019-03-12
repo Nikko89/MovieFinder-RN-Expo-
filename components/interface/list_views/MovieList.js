@@ -1,10 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import {
-  FlatList, Text, View, ActivityIndicator,
-} from 'react-native';
+import { FlatList, View, ActivityIndicator } from 'react-native';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MovieItem from './MovieItem';
@@ -29,7 +26,7 @@ class MovieList extends React.Component {
   render() {
     const { genreList } = this.props;
     const { list, favoriteList } = this.props;
-    if (!list) {
+    if (!list.length) {
       return <ActivityIndicator />;
     }
     return (
@@ -48,6 +45,10 @@ class MovieList extends React.Component {
 
 MovieList.propTypes = {
   list: propTypes.arrayOf(propTypes.shape()).isRequired,
+  genreList: propTypes.arrayOf(propTypes.shape()).isRequired,
+  favoriteList: propTypes.arrayOf(propTypes.shape()).isRequired,
+  removeMovieFromFavorites: propTypes.func.isRequired,
+  addMovieToFavorites: propTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

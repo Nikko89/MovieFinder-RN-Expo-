@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { Icon } from 'expo';
+import propTypes from 'prop-types';
 
 export default class TabBarIcon extends React.Component {
   render() {
@@ -17,3 +17,8 @@ export default class TabBarIcon extends React.Component {
     );
   }
 }
+
+TabBarIcon.propTypes = {
+  name: propTypes.string.isRequired,
+  focused: propTypes.bool.isRequired,
+};

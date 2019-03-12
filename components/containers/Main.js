@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Constants } from 'expo';
+import propTypes from 'prop-types';
 import AppNavigator from '../../navigation/AppNavigator';
 import { fetchGenreList, updateMovieList } from '../../redux/actions';
 
@@ -52,6 +53,12 @@ class Main extends Component {
     return <AppNavigator />;
   }
 }
+
+Main.propTypes = {
+  genreList: propTypes.arrayOf(propTypes.shape()).isRequired,
+  searchQuery: propTypes.string.isRequired,
+  updateGenreList: propTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   searchQuery: state.searchQuery,

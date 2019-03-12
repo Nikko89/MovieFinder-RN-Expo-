@@ -2,11 +2,10 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, Picker, Modal, Text, Dimensions,
+  View, StyleSheet, Picker, Modal, TextInput,
 } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Text } from 'react-native-elements';
 import propTypes from 'prop-types';
-import DatePicker from 'react-native-datepicker';
 import SimpleButton from '../buttons/SimpleButton';
 
 const styles = StyleSheet.create({
@@ -24,10 +23,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
   modal: {
+    paddingVertical: 30,
     justifyContent: 'center',
-    padding: 20,
-    margin: 20,
-    top: '25%',
+    flex: 1,
+    backgroundColor: 'rgba(255,255,255,0.95)',
   },
   closeButton: {
     alignSelf: 'flex-end',
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
   buttonList: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    margin: 20,
+    marginVertical: 20,
     width: '100%',
   },
 });
@@ -54,6 +53,7 @@ export default class SearchForm extends Component {
     category: null,
     showModal: false,
     search: '',
+    year: '',
   };
 
   updateSearch = (search) => {
@@ -63,7 +63,11 @@ export default class SearchForm extends Component {
   setModal = command => this.setState({ showModal: command });
 
   resetModal = () => {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, year: '', category: null });
+  };
+
+  updateYear = (year) => {
+    this.setState({ year });
   };
 
   render() {
@@ -74,13 +78,17 @@ export default class SearchForm extends Component {
       dateSearch,
       genreAndDateSearch,
     } = this.props;
-    const { category, showModal, search } = this.state;
+    const {
+      category, showModal, search, year,
+    } = this.state;
     let modalRender = null;
 
     if (showModal === 'searchbar') {
       modalRender = (
-        <View style={styles.modal}>
-          <Text>Search movies by keywords</Text>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Text h4 style={{ marginBottom: 20 }}>
+            Search movies by keywords
+          </Text>
           <SearchBar
             placeholder="Enter keyword..."
             onChangeText={this.updateSearch}
@@ -100,6 +108,9 @@ export default class SearchForm extends Component {
               click={() => {
                 this.resetModal();
                 updateSearchQuery(search);
+                this.setState({
+                  search: '',
+                });
               }}
               color="white"
               title="Submit"
@@ -110,8 +121,12 @@ export default class SearchForm extends Component {
       );
     } else if (showModal === 'filters') {
       modalRender = (
-        <View style={styles.modal}>
+        <View>
+          <Text h4 style={{ textAlign: 'center' }}>
+            Select genre:
+          </Text>
           <Picker
+            itemStyle={{ textAlign: 'center', fontWeight: 'bold', color: 'purple' }}
             selectedValue={category}
             onValueChange={cat => this.setState({
               category: cat,
@@ -127,7 +142,17 @@ export default class SearchForm extends Component {
               />
             ))}
           </Picker>
-          <DatePicker />
+          <Text h4 style={{ textAlign: 'center' }}>
+            Select Year:
+          </Text>
+          <TextInput
+            placeholder="Insert Year"
+            style={{ textAlign: 'center', marginVertical: 20, fontSize: 22 }}
+            value={year}
+            onChangeText={this.updateYear}
+            keyboardType="numeric"
+            maxLength={4}
+          />
           <View style={styles.buttonList}>
             <SimpleButton
               style={styles.closeButton}
@@ -140,7 +165,13 @@ export default class SearchForm extends Component {
               style={styles.submitButton}
               click={() => {
                 this.resetModal();
-                genreSearch(category);
+                if (category && year.length) {
+                  genreAndDateSearch(year, category);
+                } else if (category) {
+                  genreSearch(category);
+                } else if (year) {
+                  dateSearch(year);
+                }
               }}
               color="white"
               title="Submit"
@@ -168,11 +199,12 @@ export default class SearchForm extends Component {
           click={() => this.setModal('filters')}
         />
         <Modal
+          transparent
           visible={showModal !== false}
           animationType="fade"
           onRequestClose={() => this.resetModal}
         >
-          <View>{modalRender}</View>
+          <View style={styles.modal}>{modalRender}</View>
         </Modal>
       </View>
     );

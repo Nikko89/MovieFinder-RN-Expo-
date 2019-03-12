@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import {
@@ -7,6 +6,7 @@ import {
 import {
   Text, Header, Image, Rating,
 } from 'react-native-elements';
+import propTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {},
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   },
   detailsSection: {
     marginVertical: 20,
+    padding: 20,
   },
   sectionHeader: {
     fontSize: 22,
@@ -63,9 +64,9 @@ const SingleView = (props) => {
         style={{ width: fullWidth, height: 240 }}
         resizeMode="contain"
       />
-      <View style={styles.details}>
-        <View>
-          <ScrollView>
+      <ScrollView>
+        <View style={styles.details}>
+          <View>
             <Text style={{ fontSize: 18, marginTop: 10 }}>{movie.overview}</Text>
             <View style={styles.detailsSection}>
               <Rating
@@ -79,9 +80,9 @@ const SingleView = (props) => {
               />
               <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>{voteInfo}</Text>
             </View>
-            <View style={{ ...styles.detailsSection, backgroundColor: 'black', padding: 20 }}>
-              <Text style={{ ...styles.sectionHeader, color: 'white' }}>Genres:</Text>
-              <Text style={{ textAlign: 'center', fontSize: 18, color: 'white' }}>
+            <View style={{ ...styles.detailsSection }}>
+              <Text style={{ ...styles.sectionHeader }}>Genres:</Text>
+              <Text style={{ textAlign: 'center', fontSize: 18 }}>
                 {genres.map(genre => (genre === genres[genres.length - 1]
                   ? `${genre.toUpperCase()}`
                   : `${genre.toUpperCase()}, `))}
@@ -100,11 +101,17 @@ const SingleView = (props) => {
                 {movie.release_date.replace(/-/g, '/')}
               </Text>
             </View>
-          </ScrollView>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
+};
+
+SingleView.propTypes = {
+  movie: propTypes.shape().isRequired,
+  genres: propTypes.arrayOf(propTypes.shape()).isRequired,
+  closeModal: propTypes.func.isRequired,
 };
 
 export default SingleView;

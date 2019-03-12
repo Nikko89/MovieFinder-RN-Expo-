@@ -39,11 +39,13 @@ const queryReducer = (state = DEFAULT_SEARCH, action) => {
     case 'RESET_SEARCH':
       return DEFAULT_SEARCH;
     case 'GENRE_SEARCH':
-      return `${DEFAULT_SEARCH}&with_genres=${action.genreId}`;
+      return `${DEFAULT_SEARCH}&with_genres=${action.genreId}&page=1`;
     case 'DATE_SEARCH':
-      return `${DEFAULT_SEARCH}&primary_release_year=${action.year}`;
+      return `${DEFAULT_SEARCH}&primary_release_year=${action.year}&page=1`;
     case 'GENRE_AND_DATE_SEARCH':
-      return `${DEFAULT_SEARCH}&primary_release_year=${action.year}&with_genres=${action.genreId}`;
+      return `${DEFAULT_SEARCH}&primary_release_year=${action.year}&with_genres=${
+        action.genreId
+      }&page=1`;
     default:
       return state;
   }
