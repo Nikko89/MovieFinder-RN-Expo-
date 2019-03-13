@@ -12,26 +12,22 @@ import SingleView from './SingleView';
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+    height: 250,
     backgroundColor: '#fff',
     width: window.width,
     flexDirection: 'row',
-    marginBottom: 10,
+    marginVertical: 10,
   },
   section: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: window.width * 0.5,
-    marginVertical: 15,
-    padding: 15,
+    paddingHorizontal: 10,
   },
   tooltip: {
     alignSelf: 'center',
     width: 300,
-  },
-  desc: {
-    justifyContent: 'flex-start',
   },
   text: {
     color: 'rgba(0,0,0,0.8)',
@@ -108,11 +104,10 @@ class MovieItem extends React.PureComponent {
             />
           </View>
         </Modal>
-        <View style={[styles.section, styles.desc]}>
+        <View style={styles.section}>
           <Text style={styles.text}>
             {movie.title.length > 21 ? `${movie.title.substring(0, 17)}...` : `${movie.title}`}
           </Text>
-
           <Rating
             readonly
             maxStars={5}

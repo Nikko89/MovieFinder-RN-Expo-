@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   detailsSection: {
-    marginVertical: 20,
-    padding: 20,
+    marginVertical: 5,
+    padding: 10,
   },
   sectionHeader: {
     fontSize: 22,
