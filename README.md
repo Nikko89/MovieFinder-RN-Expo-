@@ -9,15 +9,15 @@ Search options: Keyword, genre, date, or genre plus date.
 
 ## Tech Stack
 
-[React Native](https://facebook.github.io/react-native/)
-[Redux](https://redux.js.org/)
-[Expo](https://expo.io/)
-[theMovieDB API](https://www.themoviedb.org/)
+- [React Native](https://facebook.github.io/react-native/)
+- [Redux](https://redux.js.org/)
+- [Expo](https://expo.io/)
+- [theMovieDB API](https://www.themoviedb.org/)
 
 Helpers:
 
-[ES Lint](https://eslint.org/)
-[Airbnb](https://github.com/airbnb/javascript)
+- [ES Lint](https://eslint.org/)
+- [Airbnb](https://github.com/airbnb/javascript)
 
 ## To Do
 
