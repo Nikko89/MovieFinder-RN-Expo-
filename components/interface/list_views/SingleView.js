@@ -110,7 +110,7 @@ const SingleView = (props) => {
 
 SingleView.propTypes = {
   movie: propTypes.shape().isRequired,
-  genres: propTypes.arrayOf(propTypes.shape()).isRequired,
+  genres: propTypes.arrayOf(propTypes.string).isRequired,
   closeModal: propTypes.func.isRequired,
 };
 

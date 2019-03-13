@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Constants } from 'expo';
 import propTypes from 'prop-types';
 import AppNavigator from '../../navigation/AppNavigator';
-import { fetchGenreList, updateMovieList } from '../../redux/actions';
+import { fetchGenreList, fetchMovieList } from '../../redux/actions';
 
 const apiKey = Constants.manifest.extra.API_KEY;
 
@@ -58,6 +58,7 @@ Main.propTypes = {
   genreList: propTypes.arrayOf(propTypes.shape()).isRequired,
   searchQuery: propTypes.string.isRequired,
   updateGenreList: propTypes.func.isRequired,
+  updateMovieList: propTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -68,7 +69,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateGenreList: query => dispatch(fetchGenreList(query)),
-  updateMovieList: list => dispatch(updateMovieList(list)),
+  updateMovieList: list => dispatch(fetchMovieList(list)),
 });
 
 export default connect(

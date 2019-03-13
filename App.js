@@ -2,31 +2,21 @@
 import React from 'react';
 import { AppLoading, Font, Icon } from 'expo';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
+import { PersistGate } from 'redux-persist/integration/react';
+import { View, StyleSheet } from 'react-native';
 import Main from './components/containers/Main';
 import SpaceMonoFont from './assets/fonts/SpaceMono-Regular.ttf';
-import reducers from './redux/reducers';
-import { loadState, saveState } from './storage/asyncStorage';
+import { store, persistor } from './store';
 
-const persistedState = loadState();
-console.log(persistedState);
-const store = createStore(reducers, applyMiddleware(logger));
-
-store.subscribe(() => {
-  saveState({
-    movieList: store.getState().movieList,
-    favoriteList: store.getState().favoriteList,
-    genreList: store.getState().genreList,
-    searchQuery: store.getState().searchQuery,
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-  };
-
   loadResourcesAsync = async () => Promise.all([
     Font.loadAsync({
       ...Icon.Ionicons.font,
@@ -34,24 +24,22 @@ export default class App extends React.Component {
     }),
   ]);
 
+  renderLoading = () => (
+    <View style={styles.container}>
+      <AppLoading />
+    </View>
+  );
+
   handleLoadingError = (error) => {
     console.warn(error);
   };
 
-  handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
-  };
-
   render() {
-    const { isLoadingComplete } = this.state;
-    if (!isLoadingComplete) {
-      return (
-        <AppLoading startAsync={this.loadResourcesAsync} onFinish={this.handleFinishLoading} />
-      );
-    }
     return (
       <Provider store={store}>
-        <Main />
+        <PersistGate persistor={persistor} loading={this.renderLoading()}>
+          <Main />
+        </PersistGate>
       </Provider>
     );
   }

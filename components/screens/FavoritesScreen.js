@@ -77,7 +77,7 @@ FavoritesScreen.propTypes = {
   favoriteList: propTypes.arrayOf(
     propTypes.shape({
       title: propTypes.string.isRequired,
-      id: propTypes.string.isRequired,
+      id: propTypes.number.isRequired,
     }),
   ).isRequired,
   navigation: propTypes.shape({

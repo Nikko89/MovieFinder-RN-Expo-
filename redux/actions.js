@@ -42,7 +42,7 @@ export const genreAndDateSearch = (year, genreId) => ({
 
 // movie list fetcher
 
-export const updateMovieList = list => ({
+export const fetchMovieList = list => ({
   type: 'UPDATE_MOVIELIST',
   list,
 });
