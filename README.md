@@ -21,13 +21,13 @@ Fix Styling, Responsiveness, debug persistence between runs, add dynamic navigat
 
 <table>
 <tr><td>
-<img width="200" alt="Screenshot 2019-03-13 at 14 31 44" src="https://user-images.githubusercontent.com/30399733/54283349-15899c00-459e-11e9-9289-a696dafc2c86.png"></td><td><img width="200" alt="Screenshot 2019-03-13 at 15 00 55" src="https://user-images.githubusercontent.com/30399733/54284786-e1fc4100-45a0-11e9-8dcd-5582f420a711.png"></td><td><img width="200" alt="Screenshot 2019-03-13 at 14 13 33" src="https://user-images.githubusercontent.com/30399733/54283334-128eab80-459e-11e9-98e9-fd73df384160.png"></td>
+<img width="200" alt="Screenshot 2019-03-13 at 15 00 55" src="https://user-images.githubusercontent.com/30399733/54284786-e1fc4100-45a0-11e9-8dcd-5582f420a711.png"></td><td><img width="200" alt="Screenshot 2019-03-13 at 14 28 44" src="https://user-images.githubusercontent.com/30399733/54283347-15899c00-459e-11e9-8118-0610a15d6afa.png"></td><td><img width="200" alt="Screenshot 2019-03-13 at 14 13 33" src="https://user-images.githubusercontent.com/30399733/54283334-128eab80-459e-11e9-98e9-fd73df384160.png"></td>
 </tr>
 <tr><td>
 <img width="200" alt="Screenshot 2019-03-13 at 14 28 25" src="https://user-images.githubusercontent.com/30399733/54283336-13274200-459e-11e9-8abc-aca84c6f906c.png"></td>
 <td>
-<img width="200" alt="Screenshot 2019-03-13 at 14 14 10" src="https://user-images.githubusercontent.com/30399733/54283335-128eab80-459e-11e9-81b9-0ffd6d419645.png"></td><td>
-<img width="200" alt="Screenshot 2019-03-13 at 14 28 44" src="https://user-images.githubusercontent.com/30399733/54283347-15899c00-459e-11e9-8118-0610a15d6afa.png"></td></tr>
+<img width="200" alt="Screenshot 2019-03-13 at 14 14 10" src="https://user-images.githubusercontent.com/30399733/54283335-128eab80-459e-11e9-81b9-0ffd6d419645.png"></td><td><img width="200" alt="Screenshot 2019-03-13 at 14 31 44" src="https://user-images.githubusercontent.com/30399733/54283349-15899c00-459e-11e9-9289-a696dafc2c86.png">
+</td></tr>
 </table>
 
 ## Cloning and Installing with NPM
