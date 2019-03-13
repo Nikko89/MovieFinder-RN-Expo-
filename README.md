@@ -17,7 +17,7 @@ Search options: Keyword, genre, date, or genre plus date.
 Helpers:
 
 - [ES Lint](https://eslint.org/)
-- [Airbnb](https://github.com/airbnb/javascript)
+- [Airbnb JS styling guide](https://github.com/airbnb/javascript)
 
 ## To Do
 
