@@ -4,23 +4,24 @@ import {
   StyleSheet, View, ScrollView, ActivityIndicator, Dimensions,
 } from 'react-native';
 import {
-  Text, Header, Image, Rating,
+  Text, Header, Image, Rating, Divider,
 } from 'react-native-elements';
 import propTypes from 'prop-types';
 
 const styles = StyleSheet.create({
-  container: {},
   details: {
     marginHorizontal: 15,
   },
-  detailsSection: {
-    marginVertical: 5,
-    padding: 10,
+  divider: {
+    height: 2,
+    backgroundColor: 'black',
+    marginBottom: 10,
   },
   sectionHeader: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginVertical: 7,
+    textTransform: 'uppercase',
   },
 });
 
@@ -32,7 +33,7 @@ const SingleView = (props) => {
   const { movie, genres, closeModal } = props;
   const voteInfo = `${movie.vote_average}/10 on ${movie.vote_count} votes`;
   return (
-    <View style={styles.container}>
+    <View>
       <Header
         containerStyle={{
           backgroundColor: '#fff',
@@ -64,45 +65,41 @@ const SingleView = (props) => {
         style={{ width: fullWidth, height: 240 }}
         resizeMode="contain"
       />
-      <ScrollView>
-        <View style={styles.details}>
-          <View>
-            <Text style={{ fontSize: 18, marginTop: 10 }}>{movie.overview}</Text>
-            <View style={styles.detailsSection}>
-              <Rating
-                readonly
-                maxStars={5}
-                startingValue={movie.vote_average / 2}
-                imageSize={45}
-                style={{ marginTop: 7, marginBottom: 7 }}
-                fullStarColor="green"
-                emptyStarColor="green"
-              />
-              <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>{voteInfo}</Text>
-            </View>
-            <View style={{ ...styles.detailsSection }}>
-              <Text style={{ ...styles.sectionHeader }}>Genres:</Text>
-              <Text style={{ textAlign: 'center', fontSize: 18 }}>
-                {genres.map(genre => (genre === genres[genres.length - 1]
-                  ? `${genre.toUpperCase()}`
-                  : `${genre.toUpperCase()}, `))}
-              </Text>
-            </View>
-            <View style={styles.detailsSection}>
-              <Text style={styles.sectionHeader}>Release:</Text>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: 30,
-                  fontStyle: 'italic',
-                  fontWeight: '600',
-                }}
-              >
-                {movie.release_date.replace(/-/g, '/')}
-              </Text>
-            </View>
-          </View>
-        </View>
+      <ScrollView style={{ paddingHorizontal: 20 }}>
+        <Text style={styles.sectionHeader}>Plot</Text>
+        <Divider style={styles.divider} />
+        <Text style={{ fontSize: 18, marginBottom: 15 }}>{movie.overview}</Text>
+        <Rating
+          readonly
+          maxStars={5}
+          startingValue={movie.vote_average / 2}
+          imageSize={45}
+          style={{ marginVertical: 7 }}
+          fullStarColor="green"
+          emptyStarColor="green"
+        />
+        <Text style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: 15 }}>
+          {voteInfo}
+        </Text>
+        <Text style={styles.sectionHeader}>Categories</Text>
+        <Divider style={styles.divider} />
+        <Text style={{ textAlign: 'center', fontSize: 18, marginBottom: 15 }}>
+          {genres.map(genre => (genre === genres[genres.length - 1]
+            ? `${genre.toUpperCase()}`
+            : `${genre.toUpperCase()}, `))}
+        </Text>
+        <Text style={styles.sectionHeader}>Release Date</Text>
+        <Divider style={styles.divider} />
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 26,
+            fontWeight: '600',
+            color: 'lightgreen',
+          }}
+        >
+          {movie.release_date.replace(/-/g, '/')}
+        </Text>
       </ScrollView>
     </View>
   );
