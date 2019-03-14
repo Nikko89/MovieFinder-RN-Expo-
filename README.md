@@ -21,7 +21,7 @@ Helpers:
 
 ## To Do
 
-Fix Styling & cross-device Responsiveness, add dynamic navigation (pagination), destructure lengthy components into smaller ones, add proper unit testing (probably going to be snapshots)
+Fix Styling & cross-device Responsiveness, add dynamic navigation (pagination), destructure lengthy components into smaller ones, add proper unit testing (probably going to be snapshots), add needed platform specific styles in stylesheets.
 
 ## Notes
 
