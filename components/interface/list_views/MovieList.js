@@ -32,6 +32,8 @@ class MovieList extends React.Component {
     return (
       <View>
         <FlatList
+          bounces={false}
+          contentContainerStyle={{}}
           data={list}
           favorites={favoriteList}
           genreList={genreList}

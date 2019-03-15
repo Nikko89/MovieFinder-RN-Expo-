@@ -17,7 +17,10 @@ export default class SimpleButton extends Component {
           <Icon.Ionicons
             name={Platform.OS === 'ios' ? `ios-${iconName}` : `md-${iconName}`}
             size={Number.parseInt(iconSize, 10)}
-            style={({ marginBottom: -3 }, title && { marginRight: 10, marginBottom: -3 })}
+            style={
+              ({ marginBottom: -3 },
+              title && { marginRight: 10, marginBottom: -3, backgroundColor: 'blue' })
+            }
             color={color || (second ? 'green' : 'orange')}
           />
 )}

@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Text } from 'react-native-elements';
 import propTypes from 'prop-types';
 import { LinearGradient } from 'expo';
@@ -17,6 +17,15 @@ const styles = StyleSheet.create({
   buttonList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  buttonView: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  outButtonText: {
+    alignSelf: 'center',
+    textTransform: 'uppercase',
+    fontSize: 16,
   },
   intro: {
     marginVertical: 10,
@@ -63,38 +72,44 @@ class HomeScreen extends React.Component {
             </Text>
           </View>
           <View style={styles.buttonList}>
-            <SimpleButton
-              iconName="search"
-              iconSize={50}
-              color="white"
-              title=""
-              type="solid"
-              click={() => navigation.navigate('Search')}
-              style={{
-                borderRadius: 50,
-                margin: 20,
-                width: 80,
-                height: 80,
-                borderColor: 'white',
-                borderWidth: 2,
-              }}
-            />
-            <SimpleButton
-              iconName="star"
-              iconSize={50}
-              color="white"
-              title=""
-              type="solid"
-              click={() => navigation.navigate('Favorites')}
-              style={{
-                borderRadius: 50,
-                margin: 20,
-                width: 80,
-                height: 80,
-                borderColor: 'white',
-                borderWidth: 2,
-              }}
-            />
+            <View style={styles.buttonView}>
+              <SimpleButton
+                iconName="search"
+                iconSize={50}
+                color={Platform.OS === 'ios' ? 'white' : 'blue'}
+                title=""
+                type="solid"
+                click={() => navigation.navigate('Search')}
+                style={{
+                  borderRadius: 50,
+                  margin: 20,
+                  width: 80,
+                  height: 80,
+                  borderColor: 'white',
+                  borderWidth: 2,
+                }}
+              />
+              <Text>Search</Text>
+            </View>
+            <View style={styles.buttonView}>
+              <SimpleButton
+                iconName="star"
+                iconSize={50}
+                color={Platform.OS === 'ios' ? 'white' : 'blue'}
+                title=""
+                type="solid"
+                click={() => navigation.navigate('Favorites')}
+                style={{
+                  borderRadius: 50,
+                  margin: 20,
+                  width: 80,
+                  height: 80,
+                  borderColor: 'white',
+                  borderWidth: 2,
+                }}
+              />
+              <Text>Favorites</Text>
+            </View>
           </View>
         </View>
       </LinearGradient>

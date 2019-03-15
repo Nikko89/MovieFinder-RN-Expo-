@@ -85,15 +85,19 @@ class MovieItem extends React.PureComponent {
     return (
       <View style={styles.container}>
         <View style={styles.section}>
-          <Image
-            style={{
-              width: 175,
-              height: 250,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            source={{ uri: posterImg }}
-          />
+          {posterImg ? (
+            <Image
+              style={{
+                width: 175,
+                height: 250,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              source={{ uri: posterImg }}
+            />
+          ) : (
+            <Text>No image for this movie!</Text>
+          )}
         </View>
         <Modal visible={showModal} animationType="slide" onRequestClose={() => this.toggleModal()}>
           <View style={styles.modal}>
@@ -104,7 +108,7 @@ class MovieItem extends React.PureComponent {
             />
           </View>
         </Modal>
-        <View style={styles.section}>
+        <View style={[styles.section]}>
           <Text style={styles.text}>
             {movie.title.length > 21 ? `${movie.title.substring(0, 17)}...` : `${movie.title}`}
           </Text>

@@ -33,25 +33,25 @@ const SingleView = (props) => {
   const { movie, genres, closeModal } = props;
   const voteInfo = `${movie.vote_average}/10 on ${movie.vote_count} votes`;
   return (
-    <View>
+    <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
       <Header
         containerStyle={{
-          backgroundColor: '#fff',
-          justifyContent: 'center',
+          backgroundColor: 'blue',
+          justifyContent: 'space-around',
+          margin: 0,
         }}
         placement="left"
-        centerContainerStyle={{ flex: 3 }}
         leftComponent={{
           icon: 'cancel',
-          color: 'blue',
+          color: 'white',
           onPress: closeModal(),
-          size: 27.5,
+          size: 37.5,
         }}
         centerComponent={{
           icon: 'menu',
           text: (
             <ScrollView horizontal contentContainerStyle={{ marginTop: 8 }}>
-              <Text h4 style={{ color: 'blue' }}>
+              <Text h4 style={{ color: 'white' }}>
                 {movie.title}
               </Text>
             </ScrollView>
@@ -65,7 +65,7 @@ const SingleView = (props) => {
         style={{ width: fullWidth, height: 240 }}
         resizeMode="contain"
       />
-      <ScrollView style={{ paddingHorizontal: 20 }}>
+      <View style={{ paddingHorizontal: 20 }}>
         <Text style={styles.sectionHeader}>Plot</Text>
         <Divider style={styles.divider} />
         <Text style={{ fontSize: 18, marginBottom: 15 }}>{movie.overview}</Text>
@@ -100,8 +100,8 @@ const SingleView = (props) => {
         >
           {movie.release_date.replace(/-/g, '/')}
         </Text>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

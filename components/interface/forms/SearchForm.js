@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   closeButton: {
     alignSelf: 'flex-end',
     backgroundColor: 'red',
-
     paddingHorizontal: 20,
   },
   submitButton: {
