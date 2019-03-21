@@ -132,46 +132,11 @@ class MovieItem extends React.PureComponent {
               movie={movie}
               genres={this.mapGenres(movie.genre_ids, genreList)}
               closeModal={() => this.toggleModal}
+              isFavorite={isFavorite}
+              toggleFavorite={() => toggleFavorite}
             />
           </View>
         </Modal>
-        {/* <View style={[styles.section]}>
-          <Text style={styles.text}>
-            {movie.title.length > 21 ? `${movie.title.substring(0, 17)}...` : `${movie.title}`}
-          </Text>
-          <Rating
-            readonly
-            maxStars={5}
-            startingValue={movie.vote_average / 2}
-            imageSize={25}
-            style={{ marginTop: 7, marginBottom: 7 }}
-            fullStarColor="green"
-            emptyStarColor="green"
-          />
-          <Text style={styles.smallText}>{voteInfo}</Text>
-          <View style={styles.buttonRow}>
-            <SimpleButton
-              type="outline"
-              color={isFavorite ? 'orange' : 'green'}
-              style={styles.button}
-              iconSize={50}
-              iconName={isFavorite ? 'remove-circle' : 'add-circle'}
-              click={() => toggleFavorite(movie)}
-            />
-            <SimpleButton
-              type="outline"
-              second
-              style={styles.button}
-              iconSize={50}
-              iconName="eye"
-              click={this.toggleModal}
-            />
-          </View>
-          <Text style={{ fontWeight: 'bold' }}>
-            Release: &nbsp;
-            {movie.release_date.substring(0, 4)}
-          </Text>
-        </View> */}
       </View>
     );
   }

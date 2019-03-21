@@ -149,28 +149,6 @@ export default class SearchForm extends Component {
               containerStyle={{ width: 300 }}
             />
           </View>
-          {/* <View style={styles.buttonList}>
-            <SimpleButton
-              style={styles.closeButton}
-              click={this.resetModal}
-              color="white"
-              title="Cancel"
-              iconName="close"
-            />
-            <SimpleButton
-              style={styles.submitButton}
-              click={() => {
-                this.resetModal();
-                updateSearchQuery(search);
-                this.setState({
-                  search: '',
-                });
-              }}
-              color="white"
-              title="Submit"
-              iconName="checkmark-circle"
-            />
-          </View> */}
         </View>
       );
     } else if (showModal === 'filters') {
@@ -272,20 +250,6 @@ export default class SearchForm extends Component {
             Filter
           </Text>
         </TouchableHighlight>
-        {/* <SimpleButton
-          iconName="search"
-          color="white"
-          style={styles.button}
-          title="search"
-          click={() => this.setModal('searchbar')}
-        />
-        <SimpleButton
-          iconName="options"
-          color="white"
-          style={styles.button}
-          title="filters"
-          click={() => this.setModal('filters')}
-        /> */}
         <Modal
           transparent
           visible={showModal !== false}

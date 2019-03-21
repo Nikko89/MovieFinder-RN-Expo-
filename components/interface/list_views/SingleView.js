@@ -1,7 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import {
-  StyleSheet, View, ScrollView, ActivityIndicator, Dimensions,
+  StyleSheet,
+  View,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Text, Header, Image, Rating, Divider,
@@ -23,6 +28,13 @@ const styles = StyleSheet.create({
     marginVertical: 7,
     textTransform: 'uppercase',
   },
+  favButton: {
+    height: 50,
+    width: Dimensions.get('screen').width - 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
 });
 
 const fullWidth = Dimensions.get('screen').width;
@@ -30,7 +42,9 @@ const fullWidth = Dimensions.get('screen').width;
 const imgRoot = 'https://image.tmdb.org/t/p/w300';
 
 const SingleView = (props) => {
-  const { movie, genres, closeModal } = props;
+  const {
+    movie, genres, closeModal, toggleFavorite, isFavorite,
+  } = props;
   const voteInfo = `${movie.vote_average}/10 on ${movie.vote_count} votes`;
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
@@ -45,7 +59,7 @@ const SingleView = (props) => {
           icon: 'cancel',
           color: 'white',
           onPress: closeModal(),
-          size: 37.5,
+          size: 27.5,
         }}
         centerComponent={{
           icon: 'menu',
@@ -57,6 +71,13 @@ const SingleView = (props) => {
             </ScrollView>
           ),
         }}
+        rightComponent={{
+          icon: isFavorite ? 'cancel' : 'done',
+          onPress: toggleFavorite(movie),
+          color: isFavorite ? 'red' : 'green',
+          size: 27.5,
+        }}
+        rightContainerStyle={{ backgroundColor: 'white' }}
         barStyle="dark-content"
       />
       <Image
@@ -65,7 +86,20 @@ const SingleView = (props) => {
         style={{ width: fullWidth, height: 240 }}
         resizeMode="contain"
       />
+
       <View style={{ paddingHorizontal: 20 }}>
+        <TouchableOpacity
+          onPress={toggleFavorite(movie)}
+          style={
+            isFavorite
+              ? { backgroundColor: 'red', ...styles.favButton }
+              : { backgroundColor: 'green', ...styles.favButton }
+          }
+        >
+          <Text style={isFavorite ? { color: 'white' } : { color: 'black' }}>
+            {isFavorite ? 'REMOVE FROM LIST' : 'ADD TO LIST'}
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.sectionHeader}>Plot</Text>
         <Divider style={styles.divider} />
         <Text style={{ fontSize: 18, marginBottom: 15 }}>{movie.overview}</Text>
@@ -109,6 +143,8 @@ SingleView.propTypes = {
   movie: propTypes.shape().isRequired,
   genres: propTypes.arrayOf(propTypes.string).isRequired,
   closeModal: propTypes.func.isRequired,
+  isFavorite: propTypes.bool.isRequired,
+  toggleFavorite: propTypes.func.isRequired,
 };
 
 export default SingleView;
