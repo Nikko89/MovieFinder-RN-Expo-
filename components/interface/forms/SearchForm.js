@@ -2,31 +2,42 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, Picker, Modal, TextInput,
+  View,
+  StyleSheet,
+  Picker,
+  Modal,
+  TextInput,
+  TouchableHighlight,
+  Dimensions,
 } from 'react-native';
-import { SearchBar, Text } from 'react-native-elements';
+import {
+  SearchBar, Text, Header, Divider,
+} from 'react-native-elements';
 import propTypes from 'prop-types';
 import SimpleButton from '../buttons/SimpleButton';
+
+const { width } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
     borderBottomColor: '#bbb',
     borderBottomWidth: 3,
     flexDirection: 'row',
-    paddingVertical: 10,
   },
   button: {
-    width: 150,
-    marginHorizontal: 5,
-    backgroundColor: 'blue',
+    paddingHorizontal: 5,
+    height: 50,
+    width: width / 2 - 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
   },
   modal: {
     paddingVertical: 30,
-    justifyContent: 'center',
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.95)',
+    backgroundColor: 'rgba(255,255,255,0.92)',
   },
   closeButton: {
     alignSelf: 'flex-end',
@@ -44,6 +55,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginVertical: 20,
     width: '100%',
+  },
+  entryText: {
+    textTransform: 'uppercase',
+    color: 'white',
+  },
+  separator: {
+    width: 2,
+    backgroundColor: 'white',
   },
 });
 
@@ -84,17 +103,53 @@ export default class SearchForm extends Component {
 
     if (showModal === 'searchbar') {
       modalRender = (
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text h4 style={{ marginBottom: 20 }}>
-            Search movies by keywords
-          </Text>
-          <SearchBar
-            placeholder="Enter keyword..."
-            onChangeText={this.updateSearch}
-            value={search}
-            containerStyle={{ width: 300 }}
+        <View style={{ alignItems: 'center' }}>
+          <Header
+            containerStyle={{
+              backgroundColor: 'black',
+              justifyContent: 'space-around',
+              margin: 0,
+            }}
+            placement="left"
+            leftComponent={{
+              icon: 'cancel',
+              color: 'white',
+              onPress: () => {
+                this.resetModal();
+              },
+              size: 27.5,
+            }}
+            rightContainerStyle={{ backgroundColor: 'green' }}
+            rightComponent={{
+              icon: 'done',
+              color: 'white',
+              onPress: () => {
+                this.resetModal();
+                updateSearchQuery(search);
+                this.setState({
+                  search: '',
+                });
+              },
+              size: 27.5,
+            }}
+            centerComponent={{
+              text: (
+                <Text h4 style={{ color: 'white' }}>
+                  KEYWORD SEARCH
+                </Text>
+              ),
+            }}
+            barStyle="dark-content"
           />
-          <View style={styles.buttonList}>
+          <View style={{ justifyContent: 'center', marginTop: 20 }}>
+            <SearchBar
+              placeholder="Enter keyword..."
+              onChangeText={this.updateSearch}
+              value={search}
+              containerStyle={{ width: 300 }}
+            />
+          </View>
+          {/* <View style={styles.buttonList}>
             <SimpleButton
               style={styles.closeButton}
               click={this.resetModal}
@@ -115,13 +170,53 @@ export default class SearchForm extends Component {
               title="Submit"
               iconName="checkmark-circle"
             />
-          </View>
+          </View> */}
         </View>
       );
     } else if (showModal === 'filters') {
       modalRender = (
         <View>
-          <Text h4 style={{ textAlign: 'center' }}>
+          <Header
+            containerStyle={{
+              backgroundColor: 'black',
+              justifyContent: 'space-around',
+              margin: 0,
+            }}
+            placement="left"
+            leftComponent={{
+              icon: 'cancel',
+              color: 'white',
+              onPress: () => {
+                this.resetModal();
+              },
+              size: 27.5,
+            }}
+            rightContainerStyle={{ backgroundColor: 'green' }}
+            rightComponent={{
+              icon: 'done',
+              color: 'white',
+              onPress: () => {
+                this.resetModal();
+                if (category && year.length) {
+                  genreAndDateSearch(year, category);
+                } else if (category) {
+                  genreSearch(category);
+                } else if (year) {
+                  dateSearch(year);
+                }
+              },
+              size: 27.5,
+            }}
+            centerComponent={{
+              text: (
+                <Text h4 style={{ color: 'white' }}>
+                  FILTERS
+                </Text>
+              ),
+            }}
+            barStyle="dark-content"
+          />
+          <Text h4 style={{ textAlign: 'center', marginTop: 20 }}>
             Select genre:
           </Text>
           <Picker
@@ -152,38 +247,32 @@ export default class SearchForm extends Component {
             keyboardType="numeric"
             maxLength={4}
           />
-          <View style={styles.buttonList}>
-            <SimpleButton
-              style={styles.closeButton}
-              click={this.resetModal}
-              color="white"
-              title="Cancel"
-              iconName="close"
-            />
-            <SimpleButton
-              style={styles.submitButton}
-              click={() => {
-                this.resetModal();
-                if (category && year.length) {
-                  genreAndDateSearch(year, category);
-                } else if (category) {
-                  genreSearch(category);
-                } else if (year) {
-                  dateSearch(year);
-                }
-              }}
-              color="white"
-              title="Submit"
-              iconName="checkmark-circle"
-            />
-          </View>
         </View>
       );
     }
 
     return (
       <View style={styles.container}>
-        <SimpleButton
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="lightgreen"
+          onPress={() => this.setModal('searchbar')}
+        >
+          <Text h4 style={styles.entryText}>
+            Search
+          </Text>
+        </TouchableHighlight>
+        <View style={styles.separator} />
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => this.setModal('filters')}
+          underlayColor="lightgreen"
+        >
+          <Text h4 style={styles.entryText}>
+            Filter
+          </Text>
+        </TouchableHighlight>
+        {/* <SimpleButton
           iconName="search"
           color="white"
           style={styles.button}
@@ -196,7 +285,7 @@ export default class SearchForm extends Component {
           style={styles.button}
           title="filters"
           click={() => this.setModal('filters')}
-        />
+        /> */}
         <Modal
           transparent
           visible={showModal !== false}

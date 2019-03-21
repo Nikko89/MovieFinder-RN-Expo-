@@ -30,7 +30,7 @@ class SearchScreen extends React.Component {
   render() {
     const { movieList } = this.props;
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <SearchForm {...this.props} />
         {movieList.length ? (
           <MovieList list={movieList} />

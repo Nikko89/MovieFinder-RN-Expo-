@@ -30,17 +30,16 @@ class MovieList extends React.Component {
       return <ActivityIndicator />;
     }
     return (
-      <View>
-        <FlatList
-          bounces={false}
-          contentContainerStyle={{}}
-          data={list}
-          favorites={favoriteList}
-          genreList={genreList}
-          renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}
-        />
-      </View>
+      <FlatList
+        bounces={false}
+        numColumns={2}
+        data={list}
+        favorites={favoriteList}
+        genreList={genreList}
+        renderItem={this.renderItem}
+        keyExtractor={this.keyExtractor}
+        initialNumToRender={6}
+      />
     );
   }
 }

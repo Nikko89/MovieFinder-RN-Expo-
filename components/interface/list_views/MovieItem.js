@@ -2,27 +2,31 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import {
-  View, StyleSheet, Image, Modal,
+  View,
+  StyleSheet,
+  ImageBackground,
+  Modal,
+  TouchableHighlight,
+  Dimensions,
 } from 'react-native';
 import propTypes from 'prop-types';
 import { Text, Rating, Divider } from 'react-native-elements';
-import window from '../../../constants/layout';
 import SimpleButton from '../buttons/SimpleButton';
 import SingleView from './SingleView';
+
+const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
   container: {
     height: 250,
     backgroundColor: '#fff',
-    width: window.width,
-    flexDirection: 'row',
-    marginVertical: 10,
+    width: width / 2,
+    flex: 0.5,
   },
   section: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: window.width * 0.5,
     paddingHorizontal: 10,
   },
   tooltip: {
@@ -57,8 +61,23 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   modal: {
-    height: window.height,
+    height,
     paddingBottom: 15,
+  },
+  titleView: {
+    paddingVertical: 10,
+    backgroundColor: 'rgba(0,0,0,0.85)',
+    width: '100%',
+    height: 60,
+    justifyContent: 'center',
+  },
+  titleText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    overflow: 'hidden',
+    paddingHorizontal: 20,
   },
 });
 
@@ -84,21 +103,29 @@ class MovieItem extends React.PureComponent {
     const voteInfo = `${movie.vote_average}/10 on ${movie.vote_count} votes`;
     return (
       <View style={styles.container}>
-        <View style={styles.section}>
-          {posterImg ? (
-            <Image
+        {posterImg ? (
+          <TouchableHighlight onPress={this.toggleModal}>
+            <ImageBackground
               style={{
-                width: 175,
-                height: 250,
-                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+                justifyContent: 'flex-end',
                 alignItems: 'center',
               }}
               source={{ uri: posterImg }}
-            />
-          ) : (
-            <Text>No image for this movie!</Text>
-          )}
-        </View>
+            >
+              <View style={styles.titleView}>
+                <Text style={styles.titleText}>
+                  {movie.title.length > 21
+                    ? `${movie.title.substring(0, 17)}...`
+                    : `${movie.title}`}
+                </Text>
+              </View>
+            </ImageBackground>
+          </TouchableHighlight>
+        ) : (
+          <Text>No image for this movie!</Text>
+        )}
         <Modal visible={showModal} animationType="slide" onRequestClose={() => this.toggleModal()}>
           <View style={styles.modal}>
             <SingleView
@@ -108,7 +135,7 @@ class MovieItem extends React.PureComponent {
             />
           </View>
         </Modal>
-        <View style={[styles.section]}>
+        {/* <View style={[styles.section]}>
           <Text style={styles.text}>
             {movie.title.length > 21 ? `${movie.title.substring(0, 17)}...` : `${movie.title}`}
           </Text>
@@ -144,8 +171,7 @@ class MovieItem extends React.PureComponent {
             Release: &nbsp;
             {movie.release_date.substring(0, 4)}
           </Text>
-        </View>
-        <Divider style={{ backgroundColor: 'blue', height: 2 }} />
+        </View> */}
       </View>
     );
   }
