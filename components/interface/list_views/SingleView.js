@@ -71,13 +71,6 @@ const SingleView = (props) => {
             </ScrollView>
           ),
         }}
-        rightComponent={{
-          icon: isFavorite ? 'cancel' : 'done',
-          onPress: toggleFavorite(movie),
-          color: isFavorite ? 'red' : 'green',
-          size: 27.5,
-        }}
-        rightContainerStyle={{ backgroundColor: 'white' }}
         barStyle="dark-content"
       />
       <Image

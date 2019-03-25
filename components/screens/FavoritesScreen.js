@@ -67,7 +67,7 @@ class FavoritesScreen extends React.Component {
 
     return (
       <View>
-        <MovieList list={favoriteList} />
+        <MovieList list={favoriteList} FavoriteList />
       </View>
     );
   }

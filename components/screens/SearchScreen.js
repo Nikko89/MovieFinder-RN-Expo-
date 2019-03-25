@@ -13,6 +13,7 @@ import {
   dateSearch,
   genreAndDateSearch,
   fetchMovieList,
+  resetSearch,
 } from '../../redux/actions';
 
 class SearchScreen extends React.Component {
@@ -72,6 +73,7 @@ const mapDispatchToProps = dispatch => ({
   dateSearch: year => dispatch(dateSearch(year)),
   genreAndDateSearch: (year, genreId) => dispatch(genreAndDateSearch(year, genreId)),
   fetchMovieList: list => dispatch(fetchMovieList(list)),
+  resetSearchQuery: () => dispatch(resetSearch()),
 });
 
 export default connect(

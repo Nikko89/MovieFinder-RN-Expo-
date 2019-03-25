@@ -40,6 +40,20 @@ export const genreAndDateSearch = (year, genreId) => ({
   genreId,
 });
 
+export const resetSearch = () => ({
+  type: 'RESET_SEARCH',
+});
+
+// paging actions for search query
+
+export const goToNextPage = () => ({
+  type: 'NEXT_PAGE',
+});
+
+export const goToLastPage = () => ({
+  type: 'LAST_PAGE',
+});
+
 // movie list fetcher
 
 export const fetchMovieList = list => ({

@@ -9,12 +9,13 @@ import {
   TextInput,
   TouchableHighlight,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {
   SearchBar, Text, Header, Divider,
 } from 'react-native-elements';
 import propTypes from 'prop-types';
-import SimpleButton from '../buttons/SimpleButton';
+import DoubleHighlight from '../buttons/DoubleHighlight';
 
 const { width } = Dimensions.get('screen');
 
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 5,
     height: 50,
-    width: width / 2 - 1,
+    width: width / 2 - 1.5,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   separator: {
-    width: 2,
+    width: 3,
     backgroundColor: 'white',
   },
 });
@@ -95,6 +96,7 @@ export default class SearchForm extends Component {
       genreSearch,
       dateSearch,
       genreAndDateSearch,
+      resetSearchQuery,
     } = this.props;
     const {
       category, showModal, search, year,
@@ -124,11 +126,19 @@ export default class SearchForm extends Component {
               icon: 'done',
               color: 'white',
               onPress: () => {
-                this.resetModal();
-                updateSearchQuery(search);
-                this.setState({
-                  search: '',
-                });
+                if (search.length) {
+                  this.resetModal();
+                  updateSearchQuery(search);
+                  this.setState({
+                    search: '',
+                  });
+                } else {
+                  Alert.alert('Nothing to search', 'Enter some text before submitting!', [
+                    {
+                      text: 'I see',
+                    },
+                  ]);
+                }
               },
               size: 27.5,
             }}
@@ -194,62 +204,69 @@ export default class SearchForm extends Component {
             }}
             barStyle="dark-content"
           />
-          <Text h4 style={{ textAlign: 'center', marginTop: 20 }}>
-            Select genre:
-          </Text>
-          <Picker
-            itemStyle={{ textAlign: 'center', fontWeight: 'bold', color: 'purple' }}
-            selectedValue={category}
-            onValueChange={cat => this.setState({
-              category: cat,
-            })
-            }
+          <View
+            style={{
+              justifyContent: 'center',
+            }}
           >
-            {genreList.map(genre => (
-              <Picker.Item
-                label={genre.name}
-                value={genre.id}
-                key={genre.id}
-                style={{ color: 'black' }}
-              />
-            ))}
-          </Picker>
-          <Text h4 style={{ textAlign: 'center' }}>
-            Select Year:
-          </Text>
-          <TextInput
-            placeholder="Insert Year"
-            style={{ textAlign: 'center', marginVertical: 20, fontSize: 22 }}
-            value={year}
-            onChangeText={this.updateYear}
-            keyboardType="numeric"
-            maxLength={4}
-          />
+            <TouchableHighlight
+              style={{
+                width: 200,
+                backgroundColor: 'blue',
+                margin: 20,
+                padding: 15,
+                alignSelf: 'center',
+              }}
+              onPress={resetSearchQuery}
+              underlayColor="black"
+            >
+              <Text style={{ textAlign: 'center', color: 'white' }}>CLEAR FILTERS</Text>
+            </TouchableHighlight>
+            <Text h4 style={{ textAlign: 'center', marginTop: 20 }}>
+              Select genre:
+            </Text>
+            <Picker
+              itemStyle={{ textAlign: 'center', fontWeight: 'bold', color: 'purple' }}
+              selectedValue={category}
+              onValueChange={cat => this.setState({
+                category: cat,
+              })
+              }
+            >
+              {genreList.map(genre => (
+                <Picker.Item
+                  label={genre.name}
+                  value={genre.id}
+                  key={genre.id}
+                  itemStyle={{ color: 'purple', fontWeight: ' bold' }}
+                />
+              ))}
+            </Picker>
+            <Text h4 style={{ textAlign: 'center' }}>
+              Select Year:
+            </Text>
+            <TextInput
+              placeholder="Insert Year"
+              style={{ textAlign: 'center', marginVertical: 20, fontSize: 22 }}
+              value={year}
+              onChangeText={this.updateYear}
+              keyboardType="numeric"
+              maxLength={4}
+            />
+          </View>
         </View>
       );
     }
 
     return (
       <View style={styles.container}>
-        <TouchableHighlight
-          style={styles.button}
-          underlayColor="lightgreen"
-          onPress={() => this.setModal('searchbar')}
-        >
-          <Text h4 style={styles.entryText}>
-            Search
-          </Text>
-        </TouchableHighlight>
-        <View style={styles.separator} />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.setModal('filters')}
-          underlayColor="lightgreen"
-        >
-          <Text h4 style={styles.entryText}>
-            Filter
-          </Text>
-        </TouchableHighlight>
+        <DoubleHighlight
+          funcOne={() => this.setModal('searchbar')}
+          funcTwo={() => this.setModal('filters')}
+          colorSet="lightgreen"
+          textOne="Search"
+          textTwo="Filters"
+        />
         <Modal
           transparent
           visible={showModal !== false}
