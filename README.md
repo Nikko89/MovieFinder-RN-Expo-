@@ -27,7 +27,7 @@ Fix Styling & cross-device Responsiveness, add dynamic navigation (pagination), 
 
 Because of the last point, i suggest trying the app on medium to large screen sized devices. If you try it on a small device, a giant punch will break the screen and catch you in the eye. Please wait the fix for it.
 
-## Screenshots (iPhone 6s on XDE simulator)
+## Screenshots (iPhone 6s on XDE simulator, not yet updated to last version)
 
 <table>
 <tr><td>
